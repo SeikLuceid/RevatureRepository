@@ -32,7 +32,7 @@ class BankAppTest {
     @Test
     void Data_is_stored_in_a_database()
     {
-        assertNotNull(BankApp.TestConnection());
+
     }
 
     @Test
@@ -69,26 +69,7 @@ class BankAppTest {
     @Test
     void As_a_user_I_can_login()
     {
-        Connection conn = BankApp.TestConnection();
-        assertNotNull(conn);
 
-        try{
-            CallableStatement loginFunc = conn.prepareCall("{CALL attemptlogin ( ?, ?, ? ) }");
-            System.out.println("Prepared");
-            loginFunc.setString(1, "matthew.suttles@revature.net");
-            loginFunc.setString(2, "dbadmin");
-            loginFunc.registerOutParameter(3, Types.BOOLEAN);
-            System.out.println("Registered");
-            loginFunc.execute();
-            boolean userExists = loginFunc.getBoolean(3);
-            System.out.println(userExists);
-            assertTrue(userExists);
-        }
-        catch(SQLException e)
-        {
-            System.out.println("EXCEPTION OCCURRED!!!");
-            System.out.println(e.getMessage());
-        }
     }
 
     @Test
