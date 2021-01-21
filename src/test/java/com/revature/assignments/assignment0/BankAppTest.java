@@ -1,11 +1,9 @@
 package com.revature.assignments.assignment0;
 
+import com.revature.databases.DatabaseConnect;
 import org.junit.jupiter.api.Test;
 
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Types;
+import java.sql.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -32,7 +30,26 @@ class BankAppTest {
     @Test
     void Data_is_stored_in_a_database()
     {
-
+        try (Connection conn = DatabaseConnect.connect())
+        {
+            Statement query = conn.createStatement();
+            ResultSet results = query.executeQuery("SELECT * FROM users");
+            assertTrue(results.next());
+            do
+            {
+                System.out.println(
+                    results.getString("email") +
+                        "\t" + results.getString("password") +
+                            "\t" + results.getInt("id")
+                );
+            }
+            while(results.next());
+        }
+        catch(SQLException e)
+        {
+            System.out.println(e.getMessage());
+            fail();
+        }
     }
 
     @Test
