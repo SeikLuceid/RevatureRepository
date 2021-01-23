@@ -88,4 +88,19 @@ public class StudentCRUDImpl implements StudentCRUD
 
         return students.toArray(new Student[students.size()]);
     }
+
+    @Override
+    public void finalize()
+    {
+        try{
+            addStmt.close();
+            updateStmt.close();
+            deleteStmt.close();
+            readStmt.close();
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
 }

@@ -7,15 +7,6 @@ public class MainClass
 {
     public static void main(String[] args)
     {
-        Connection conn = DatabaseConnect.connect();
-
-        if(conn != null)
-        {
-            System.out.println("Work with Database!");
-        }
-        else
-        {
-            System.out.println("You're offline!");
-        }
+        System.out.println("Transaction ID\tAmount\tSource Account\tDestination Account");
     }
 }

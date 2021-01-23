@@ -7,7 +7,8 @@ import java.sql.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class BankAppTest {
+class BankAppTest
+{
     //Requirements
     @Test
     void Functionality_should_reflect_the_below_user_stories()
@@ -110,7 +111,8 @@ class BankAppTest {
     @Test
     void As_the_system_I_reject_invalid_transactions()
     {
-
+        As_the_system_I_reject_a_withdrawal_that_would_result_in_a_negative_balance();
+        As_the_system_I_reject_a_deposit_or_withdrawal_of_negative_money();
     }
 
     @Test
