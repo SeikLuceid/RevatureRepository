@@ -13,11 +13,11 @@ public class BankApp
 
         do
         {
-            menu.processInputs(input);
+            menu.processInputs();
         }
         while(!menu.quitProgram());
 
-        System.out.println("Thank you for banking with us.  Goodbye!");
+        System.out.println("\n\nThank you for banking with us.  Goodbye!");
     }
 }
 

@@ -1,11 +1,8 @@
 package com.revature.assignments.assignment0.states;
 
-import java.io.IOException;
-import java.util.Scanner;
-
 public class MenuStateMachine
 {
-    private static MenuStateMachine instance = new MenuStateMachine();;
+    private static MenuStateMachine instance = new MenuStateMachine();
     private static State currentState = new MainMenu();
 
     private MenuStateMachine() { }
@@ -17,13 +14,13 @@ public class MenuStateMachine
         return currentState.quitProgram();
     }
 
-    public void processInputs(Scanner input)
+    public void processInputs()
     {
-        System.out.println("\n");
-        currentState.processInputs(input);
+        System.out.println();
+        currentState.processInputs();
     }
 
-    void SetState(State newState)
+    public void SetState(State newState)
     {
         if(newState == currentState)
             return;

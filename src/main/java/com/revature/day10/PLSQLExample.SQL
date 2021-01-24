@@ -218,12 +218,12 @@ CREATE OR REPLACE FUNCTION swap(
     INOUT x INTEGER,
     INOUT y INTEGER
 )
-LANGUAGE plpgsql
+LANGUAGE 'plpgsql'
 AS $$
 BEGIN
     SELECT x, y INTO y, x;
 END;
-$$
+$$;
 
 select swap(10, 5);
 
@@ -242,7 +242,7 @@ BEGIN
         WHEN no_data_found THEN
             RAISE EXCEPTION 'film % not found', v_film_id;
 END;
-$$
+$$;
 
 do
 $$
@@ -260,7 +260,7 @@ $$
             RAISE EXCEPTION 'film % not found', v_film_id;
     END;
 $$
-LANGUAGE plpgsql;
+LANGUAGE 'plpgsql';
 
 DO
 $$
@@ -278,7 +278,7 @@ BEGIN
         WHEN too_many_rows THEN
             RAISE EXCEPTION 'Search query returns too many rows';
 END;
-$$
+$$;
 
 do
 $$
@@ -317,7 +317,7 @@ $$
         INSERT INTO accounts (user_name, password, first_name, last_name, ssn)
         VALUES (new_user_name, new_password, new_first_name, new_last_name, new_ssn);
     END;
-$$
+$$;
 
 CREATE TABLE accounts
 (
@@ -341,7 +341,7 @@ CREATE TABLE customers
     last_name TEXT NOT NULL,
     ssn CHAR(11) NOT NULL UNIQUE,
     user_id INT PRIMARY KEY
-)
+);
 
 CREATE OR REPLACE FUNCTION user_name_doesnt_exist(target_username VARCHAR)
 RETURNS BOOLEAN
@@ -425,7 +425,7 @@ BEGIN
 
     RETURN NEW;
 END;
-$$
+$$;
 
 CREATE TRIGGER last_name_changes
     BEFORE UPDATE
@@ -439,8 +439,56 @@ SELECT * FROM employees;
 
 SELECT * FROM employee_audits;
 
-CREATE OR REPLACE PROCEDURE accepttransfer
-    (
-        receiver int,
-        transfer int
-    );
+CREATE OR REPLACE PROCEDURE register_user
+(
+    p_username text,
+    p_password text,
+    p_first_name text,
+    p_last_name text,
+    p_ssn_text text
+)
+    LANGUAGE 'plpgsql'
+AS $$
+DECLARE
+    v_user_id integer;
+BEGIN
+    INSERT INTO users (username, password)
+    VALUES(p_username, crypt(p_password, "gen_salt"('bf')));
+
+    SELECT user_id INTO v_user_id FROM users WHERE username = p_username;
+
+    INSERT INTO customers (first_name, last_name, ssn, user_id)
+    VALUES(p_first_name, p_last_name, p_ssn_text, v_user_id);
+END;
+$$;
+
+CREATE OR REPLACE FUNCTION public.ssn_exists(
+    p_ssn_text text)
+    RETURNS boolean
+    LANGUAGE 'plpgsql'
+AS $BODY$
+DECLARE
+    rec RECORD;
+BEGIN
+    SELECT ssn INTO rec FROM customers WHERE ssn = p_ssn_text;
+
+    IF NOT FOUND THEN
+        RETURN false;
+    ELSE
+        RETURN true;
+    END IF;
+END;
+$BODY$;
+
+CREATE OR REPLACE FUNCTION public.check_password
+(p_username text,
+ p_password text)
+    RETURNS INT
+    LANGUAGE 'plpgsql'
+AS $BODY$
+DECLARE v_user_id INT := -1;
+BEGIN
+    SELECT user_id INTO v_user_id FROM users WHERE username = p_username AND password = crypt(p_password, password);
+    RETURN v_user_id;
+END;
+$BODY$;

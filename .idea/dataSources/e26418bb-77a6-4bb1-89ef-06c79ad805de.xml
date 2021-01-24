@@ -793,7 +793,7 @@ false Zulu
     <database id="3" parent="1" name="dvdrental">
       <ObjectId>16394</ObjectId>
       <Owner>postgres</Owner>
-      <IntrospectionStateNumber>880</IntrospectionStateNumber>
+      <IntrospectionStateNumber>939</IntrospectionStateNumber>
       <Current>1</Current>
       <Relations>sequence|table|16959|16961|1
 sequence|table|16966|16968|1
@@ -886,7 +886,7 @@ UC/10
 </Acl>
       <StateNumber>287</StateNumber>
       <Owner>postgres</Owner>
-      <IntrospectionStateNumber>881</IntrospectionStateNumber>
+      <IntrospectionStateNumber>940</IntrospectionStateNumber>
       <Current>1</Current>
     </schema>
     <sequence id="21" parent="20" name="actor_actor_id_seq">
