@@ -1,13 +1,11 @@
 package com.revature.assignments.assignment0.states;
 
-import com.revature.assignments.assignment0.Input;
-import com.revature.assignments.assignment0.User;
-import com.revature.databases.DatabaseConnect;
+import com.revature.assignments.assignment0.singletons.*;
+import com.revature.assignments.assignment0.dataObjects.User;
 
 import java.util.Locale;
-import java.util.Scanner;
 
-class RegisterState implements State
+class RegisterMenu implements State
 {
     private String username;
     private String password;
@@ -18,7 +16,7 @@ class RegisterState implements State
     private boolean shouldQuit = false;
     private boolean exitMenu = false;
 
-    public RegisterState() { System.out.println("Beginning User Registration.");}
+    public RegisterMenu() { System.out.println("Beginning User Registration.");}
 
     public void processInputs()
     {
@@ -39,7 +37,7 @@ class RegisterState implements State
         if(user == null)
         {
             System.out.println("Unable to Create User at this time.  Please try again later.");
-            MenuStateMachine.getInstance().SetState(new MainMenu());
+            MenuStateMachine.getInstance().setState(new MainMenu());
             exitMenu = true;
         }
         else
@@ -157,7 +155,7 @@ class RegisterState implements State
             if(DatabaseConnect.ssnExists(ssn))
             {
                 System.out.println("That SSN already exists as a user.  Please contact customer service.");
-                MenuStateMachine.getInstance().SetState(new MainMenu());
+                MenuStateMachine.getInstance().setState(new MainMenu());
                 exitMenu = true;
             }
         }
@@ -181,7 +179,7 @@ class RegisterState implements State
                     invalid = false;
                     break;
                 case 'R':
-                    MenuStateMachine.getInstance().SetState(new MainMenu());
+                    MenuStateMachine.getInstance().setState(new MainMenu());
                     invalid = false;
                     exitMenu = true;
                     break;

@@ -1,10 +1,9 @@
-package com.revature.assignments.assignment0;
+package com.revature.assignments.assignment0.dataObjects;
 
 import java.util.ArrayList;
 
 public interface User
 {
-    String getFirstName();
     String getLastName();
     int getId();
     void loadMenu();

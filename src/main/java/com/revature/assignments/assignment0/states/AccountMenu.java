@@ -1,7 +1,7 @@
 package com.revature.assignments.assignment0.states;
 
-import com.revature.assignments.assignment0.*;
-import com.revature.databases.DatabaseConnect;
+import com.revature.assignments.assignment0.dataObjects.*;
+import com.revature.assignments.assignment0.singletons.*;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -44,7 +44,7 @@ public class AccountMenu implements State
                     reviewTransfers();
                 break;
             case 'B':
-                MenuStateMachine.getInstance().SetState(new CustomerMenu(customer));
+                MenuStateMachine.getInstance().setState(new CustomerMenu(customer));
                 return;
             default:
                 System.out.println("Invalid Entry!  Please try again.");
@@ -300,7 +300,7 @@ public class AccountMenu implements State
                 case 'T':
                     break;
                 case 'R':
-                    MenuStateMachine.getInstance().SetState(new MainMenu());
+                    MenuStateMachine.getInstance().setState(new MainMenu());
                     break;
                 case 'Q':
                     shouldQuit = true;

@@ -1,4 +1,4 @@
-package com.revature.assignments.assignment0;
+package com.revature.assignments.assignment0.singletons;
 
 import java.util.Scanner;
 

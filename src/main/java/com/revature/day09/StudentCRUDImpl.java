@@ -1,6 +1,6 @@
 package com.revature.day09;
 
-import com.revature.databases.DatabaseConnect;
+import com.revature.assignments.assignment0.singletons.DatabaseConnect;
 
 import java.sql.*;
 import java.util.ArrayList;

@@ -1,13 +1,9 @@
 package com.revature.assignments.assignment0.states;
 
-import com.revature.assignments.assignment0.Input;
-import com.revature.assignments.assignment0.User;
-import com.revature.databases.DatabaseConnect;
+import com.revature.assignments.assignment0.singletons.*;
+import com.revature.assignments.assignment0.dataObjects.User;
 
-import java.util.Locale;
-import java.util.Scanner;
-
-class LoginState implements State
+class LoginMenu implements State
 {
     private String username;
     private String password;
@@ -15,7 +11,7 @@ class LoginState implements State
     private boolean shouldQuit = false;
     private boolean exitMenu = false;
 
-    public LoginState() { System.out.println("Beginning User Login."); }
+    public LoginMenu() { System.out.println("Beginning User Login."); }
 
     public void processInputs()
     {
@@ -91,7 +87,7 @@ class LoginState implements State
                 case 'T':
                     break;
                 case 'R':
-                    MenuStateMachine.getInstance().SetState(new MainMenu());
+                    MenuStateMachine.getInstance().setState(new MainMenu());
                     exitMenu = true;
                     break;
                 case 'Q':

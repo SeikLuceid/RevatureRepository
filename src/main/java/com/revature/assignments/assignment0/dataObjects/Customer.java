@@ -1,8 +1,8 @@
-package com.revature.assignments.assignment0;
+package com.revature.assignments.assignment0.dataObjects;
 
 import com.revature.assignments.assignment0.states.CustomerMenu;
 import com.revature.assignments.assignment0.states.MenuStateMachine;
-import com.revature.databases.DatabaseConnect;
+import com.revature.assignments.assignment0.singletons.DatabaseConnect;
 
 import java.util.ArrayList;
 
@@ -48,7 +48,7 @@ public class Customer implements User {
     }
 
     public void loadMenu() {
-        MenuStateMachine.getInstance().SetState(new CustomerMenu(this));
+        MenuStateMachine.getInstance().setState(new CustomerMenu(this));
     }
 
     public ArrayList<Account> getAccounts() {

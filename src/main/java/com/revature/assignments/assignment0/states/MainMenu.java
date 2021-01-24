@@ -1,9 +1,6 @@
 package com.revature.assignments.assignment0.states;
 
-import com.revature.assignments.assignment0.Input;
-
-import java.util.Locale;
-import java.util.Scanner;
+import com.revature.assignments.assignment0.singletons.Input;
 
 class MainMenu implements State
 {
@@ -18,27 +15,13 @@ class MainMenu implements State
 
         char selection = Input.getChar();
         if(selection == 'L')
-            MenuStateMachine.getInstance().SetState(new LoginState());
+            MenuStateMachine.getInstance().setState(new LoginMenu());
         else if(selection == 'R')
-            MenuStateMachine.getInstance().SetState(new RegisterState());
+            MenuStateMachine.getInstance().setState(new RegisterMenu());
         else if(selection == 'Q')
             shouldQuit = true;
         else
             System.out.println("Invalid Input. Please try again.");
-    }
-
-    public boolean quitProgram() {
-        return shouldQuit;
-    }
-}
-
-class EmptyState implements State
-{
-    private boolean shouldQuit = false;
-
-    public void processInputs()
-    {
-
     }
 
     public boolean quitProgram() {

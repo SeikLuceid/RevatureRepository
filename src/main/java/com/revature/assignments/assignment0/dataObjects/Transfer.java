@@ -1,4 +1,4 @@
-package com.revature.assignments.assignment0;
+package com.revature.assignments.assignment0.dataObjects;
 
 import java.text.NumberFormat;
 

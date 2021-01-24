@@ -1,10 +1,7 @@
 package com.revature.assignments.assignment0.states;
 
-import com.revature.assignments.assignment0.Account;
-import com.revature.assignments.assignment0.Customer;
-import com.revature.assignments.assignment0.Input;
-import com.revature.assignments.assignment0.Transfer;
-import com.revature.databases.DatabaseConnect;
+import com.revature.assignments.assignment0.dataObjects.*;
+import com.revature.assignments.assignment0.singletons.*;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -51,7 +48,7 @@ public class CustomerMenu implements State
                 displayPendingTransfers();
                 break;
             case 'L':
-                MenuStateMachine.getInstance().SetState(new MainMenu());
+                MenuStateMachine.getInstance().setState(new MainMenu());
                 break;
         }
     }
@@ -237,6 +234,7 @@ public class CustomerMenu implements State
                     invalid = false;
                     break;
                 default:
+                    System.out.println("Invalid Entry.  Please try again.\n");
                     break;
             }
         }
@@ -255,7 +253,7 @@ public class CustomerMenu implements State
             {
                 if(account.getAccountNumber() == selection)
                 {
-                    MenuStateMachine.getInstance().SetState(new AccountMenu(account, customer));
+                    MenuStateMachine.getInstance().setState(new AccountMenu(account, customer));
                     invalid = false;
                     return;
                 }
@@ -267,7 +265,7 @@ public class CustomerMenu implements State
             {
                 if(account.getAccountNumber() == selection)
                 {
-                    MenuStateMachine.getInstance().SetState(new AccountMenu(account, customer));
+                    MenuStateMachine.getInstance().setState(new AccountMenu(account, customer));
                     invalid = false;
                     return;
                 }
@@ -294,7 +292,7 @@ public class CustomerMenu implements State
                 case 'T':
                     break;
                 case 'R':
-                    MenuStateMachine.getInstance().SetState(new MainMenu());
+                    MenuStateMachine.getInstance().setState(new MainMenu());
                     break;
                 case 'Q':
                     shouldQuit = true;
