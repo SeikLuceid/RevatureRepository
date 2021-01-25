@@ -16,8 +16,6 @@ class RegisterMenu implements State
     private boolean shouldQuit = false;
     private boolean exitMenu = false;
 
-    public RegisterMenu() { System.out.println("Beginning User Registration.");}
-
     public void processInputs()
     {
         exitMenu = false;

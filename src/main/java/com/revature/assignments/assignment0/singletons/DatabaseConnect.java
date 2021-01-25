@@ -6,7 +6,13 @@ import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class DatabaseConnect {
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
+public class DatabaseConnect
+{
+    public static final Logger logger = LogManager.getLogger();
+
     private static final String DATABASE_CONNECTION_STRING = "jdbc:postgresql://localhost:5432/bankapp";
     private static final String DATABASE_USER_NAME = "postgres";
     private static final String DATABASE_USER_PASSWORD = "db-admin";
@@ -24,8 +30,7 @@ public class DatabaseConnect {
             conn = DriverManager.getConnection(DATABASE_CONNECTION_STRING, DATABASE_USER_NAME, DATABASE_USER_PASSWORD);
             return conn;
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
+            logger.error("SQL", e);
             return null;
         }
     }
@@ -41,7 +46,7 @@ public class DatabaseConnect {
             call.close();
             return exists;
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("SQL", e);
             return true;
         }
     }
@@ -63,7 +68,7 @@ public class DatabaseConnect {
             newUser = attemptLogin(username, password);
             call.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+           logger.error("SQL", e);
         }
 
         return newUser;
@@ -80,18 +85,23 @@ public class DatabaseConnect {
             call.close();
             return exists;
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("SQL", e);
             return true;
         }
     }
 
-    private static void verifyConnection() {
+    private static void verifyConnection() throws SQLException {
         try {
             if (conn == null || conn.isClosed())
                 connect();
         }
         catch (SQLException e) {
-            e.printStackTrace();
+           logger.error("SQL", e);
+        }
+
+        if(conn == null || conn.isClosed())
+        {
+            throw new SQLException("Connection Failed");
         }
     }
 
@@ -108,6 +118,8 @@ public class DatabaseConnect {
             if (!exists) {
                 System.out.println("\nUsername not found.\n");
                 call.close();
+                throw new SQLException("TESTING LOGGING");
+                //return newUser;
             }
 
             call = conn.prepareCall("{? = call check_password(?, ?)}");
@@ -119,6 +131,7 @@ public class DatabaseConnect {
             if (id <= 0) {
                 System.out.println("\nPassword Incorrect.\n");
                 call.close();
+                return newUser;
             }
 
             boolean isEmployee = false;
@@ -142,7 +155,8 @@ public class DatabaseConnect {
 
             call.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+           logger.error("SQL", e);
+           logger.trace("Login Failure.  Please try again Later.");
         }
 
         return newUser;
@@ -161,7 +175,7 @@ public class DatabaseConnect {
                 accounts.add(new Account(rs.getInt(1), rs.getBigDecimal(2).doubleValue(), customer_id));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+           logger.error("SQL", e);
         }
 
         return accounts;
@@ -180,7 +194,7 @@ public class DatabaseConnect {
                 account = new Account(rs.getInt(1), rs.getBigDecimal(2).doubleValue(), customer_id);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+           logger.error("SQL", e);
         }
         return account;
     }
@@ -213,12 +227,12 @@ public class DatabaseConnect {
             conn.commit();
             conn.setAutoCommit(true);
         } catch (SQLException e) {
-            e.printStackTrace();
+           logger.error("SQL", e);
             try{
                 conn.rollback();
                 conn.setAutoCommit(true);
             } catch (SQLException e1) {
-                e1.printStackTrace();
+                logger.error("SQL", e1);
             }
         }
         return account;
@@ -234,7 +248,7 @@ public class DatabaseConnect {
             stmt.executeUpdate();
             return true;
         } catch (SQLException e) {
-            e.printStackTrace();
+           logger.error("SQL", e);
             return false;
         }
     }
@@ -275,7 +289,7 @@ public class DatabaseConnect {
                 transfers.add(new Transfer(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getDouble(4)));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+           logger.error("SQL", e);
         }
         return transfers;
     }
@@ -288,7 +302,7 @@ public class DatabaseConnect {
             stmt.executeUpdate();
             return true;
         } catch (SQLException e) {
-            e.printStackTrace();
+           logger.error("SQL", e);
             return false;
         }
     }
@@ -302,7 +316,7 @@ public class DatabaseConnect {
             stmt.executeUpdate();
             return true;
         } catch (SQLException e) {
-            e.printStackTrace();
+           logger.error("SQL", e);
             return false;
         }
     }
@@ -344,13 +358,13 @@ public class DatabaseConnect {
             conn.setAutoCommit(true);
             return true;
         } catch (SQLException e) {
-            e.printStackTrace();
+           logger.error("SQL", e);
             if (conn != null) {
                 try {
                     conn.rollback();
                     conn.setAutoCommit(true);
                 } catch (SQLException e1) {
-                    e1.printStackTrace();
+                    logger.error("SQL", e1);
                 }
             }
             return false;
@@ -376,7 +390,7 @@ public class DatabaseConnect {
                 );
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+           logger.error("SQL", e);
         }
 
         return pendingAccounts;
@@ -391,7 +405,7 @@ public class DatabaseConnect {
             return true;
         }
         catch(SQLException e){
-            e.printStackTrace();
+           logger.error("SQL", e);
             return false;
         }
     }
@@ -418,7 +432,7 @@ public class DatabaseConnect {
             }
         }
         catch (SQLException e) {
-            e.printStackTrace();
+           logger.error("SQL", e);
         }
 
         return transactions;
@@ -459,14 +473,14 @@ public class DatabaseConnect {
             return true;
         }
         catch(SQLException e){
-            e.printStackTrace();
+           logger.error("SQL", e);
             try{
                 conn.rollback();
                 conn.setAutoCommit(true);
             }
             catch(SQLException e1)
             {
-                e1.printStackTrace();
+                logger.error("SQL", e1);
             }
             return false;
     }
@@ -477,7 +491,7 @@ public class DatabaseConnect {
         try {
             conn.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+           logger.error("SQL", e);
         }
     }
 }

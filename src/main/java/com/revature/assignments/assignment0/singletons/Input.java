@@ -10,7 +10,6 @@ public class Input
 
     private static String getScannerInput()
     {
-        scanner.hasNextLine();
         return scanner.nextLine();
     }
 

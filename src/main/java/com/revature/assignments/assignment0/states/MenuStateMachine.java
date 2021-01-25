@@ -27,7 +27,6 @@ public class MenuStateMachine
     {
         if(newState == currentState)
             return;
-        logger.trace("* Loading New Menu Of Type " + newState.getClass().getName() + " *");
         currentState = newState;
     }
 }

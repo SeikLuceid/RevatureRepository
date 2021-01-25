@@ -11,8 +11,6 @@ class LoginMenu implements State
     private boolean shouldQuit = false;
     private boolean exitMenu = false;
 
-    public LoginMenu() { System.out.println("Beginning User Login."); }
-
     public void processInputs()
     {
         getUsername();
