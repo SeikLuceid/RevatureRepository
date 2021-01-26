@@ -1,11 +1,17 @@
 package com.revature.assignments.assignment0;
 
-import static org.junit.jupiter.api.Assertions.*;
+import com.revature.assignments.assignment0.dataObjects.*;
+import com.revature.assignments.assignment0.singletons.*;
+import com.revature.assignments.assignment0.states.*;
+import org.apache.logging.log4j.*;
 import org.junit.jupiter.api.Test;
+import java.io.*;
+import java.sql.*;
+import java.util.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 class BankAppTest
 {
-    //Requirements
     @Test
     void Functionality_should_reflect_the_below_user_stories()
     {
@@ -27,31 +33,76 @@ class BankAppTest
     @Test
     void Data_is_stored_in_a_database()
     {
-        assertTrue(true);
+        try{
+            Connection conn = DatabaseConnect.connect();
+            assert(conn.isValid(1));
+            DatabaseMetaData metaData = conn.getMetaData();
+            ResultSet rs = metaData.getTables(null, null, "accounts", null);
+            assertTrue(rs.first());
+            rs = metaData.getTables(null, null, "customers", null);
+            assertTrue(rs.first());
+            rs = metaData.getTables(null, null, "employees", null);
+            assertTrue(rs.first());
+            rs = metaData.getTables(null, null, "pending_accounts", null);
+            assertTrue(rs.first());
+            rs = metaData.getTables(null, null, "transactions", null);
+            assertTrue(rs.first());
+            rs = metaData.getTables(null, null, "transfers", null);
+            assertTrue(rs.first());
+            rs = metaData.getTables(null, null, "users", null);
+            assertTrue(rs.first());
+
+        } catch (SQLException e)
+        {
+            fail();
+        }
     }
 
     @Test
     void A_custom_stored_procedure_is_called_to_perform_some_portion_of_the_functionality()
     {
-        assertTrue(true);
+        try{
+            Connection conn = DatabaseConnect.connect();
+            assert(conn.isValid(1));
+            CallableStatement call = conn.prepareCall("{? = call username_exists(?)}");
+            call.registerOutParameter(1, Types.BOOLEAN);
+            call.setString(2, "ADMIN");
+            call.execute();
+            boolean exists = call.getBoolean(1);
+            assertTrue(exists);
+        }   catch (SQLException e)
+        {
+            fail();
+        }
     }
 
     @Test
     void Data_Access_is_performed_through_the_use_of_JDBC_in_a_data_layer_consisting_of_Data_Access_Objects()
     {
-        assertTrue(true);
+        User u = DatabaseConnect.attemptLogin("ADMIN", "PASSWORD");
+        Customer c = (Customer)DatabaseConnect.attemptLogin("SEIKLUCEID", "sl-admin");
+        Employee e = (Employee)DatabaseConnect.attemptLogin("ADMIN", "PASSWORD");
+        assertNotNull(u);
+        assertNotNull(c);
+        assertNotNull(e);
+        assertEquals(Employee.class, u.getClass());
+        assertEquals(Customer.class, c.getClass());
+        assertEquals(Employee.class, e.getClass());
     }
 
     @Test
     void All_input_is_received_using_the_java_util_Scanner_class()
     {
-        assertTrue(true);
+        Input.SetScanner(new Scanner("Test"));
+        assertTrue(Input.getString().equals("Test"));
     }
 
     @Test
     void Log4j_is_implemented_to_log_events_to_a_file()
     {
-        assertTrue(true);
+        Logger logger = LogManager.getLogger(DatabaseConnect.class);
+        String classString = "class org.apache.logging.log4j.core.Logger";
+        assertEquals(logger.getClass().toString(), classString);
     }
 
     @Test
@@ -78,29 +129,43 @@ class BankAppTest
         As_an_employee_I_can_view_a_log_of_all_transactions();
     }
 
-    //_User_Stories
     @Test
     void As_a_user_I_can_login()
     {
-        assertTrue(true);
+        String username = "ADMIN";
+        String password = "PASSWORD";
+        int user_id = 4;
+        User c = DatabaseConnect.attemptLogin(username, password);
+        assertEquals(c.getId(), user_id);
     }
 
     @Test
     void As_a_customer_I_can_apply_for_a_new_bank_account_with_a_starting_balance()
     {
-        assertTrue(true);
+        String username = "SeikLuceid";
+        String password = "sl-admin";
+        Customer c = (Customer)DatabaseConnect.attemptLogin(username, password);
+        Account account = DatabaseConnect.createBankAccount(c, 100D);
+
+        DatabaseConnect.removePendingAccount(account);
     }
 
     @Test
     void As_a_customer_I_can_view_the_balance_of_a_specific_account()
     {
-        assertTrue(true);
+        Account account = DatabaseConnect.requestAccountByNumber(9, 3);
+        assertTrue(account.getBalance() == 1000D);
     }
 
     @Test
     void As_a_customer_I_can_make_a_withdrawal_or_deposit_to_a_specific_account()
     {
-        assertTrue(true);
+        Account account = DatabaseConnect.requestAccountByNumber(9, 3);
+        account.getBalance();
+        account = DatabaseConnect.adjustBalanceToAccount(5D, 9, 3);
+        assertTrue(account.getBalance() == 5D);
+        account =DatabaseConnect.adjustBalanceToAccount(1000D, 9, 3);
+        assertTrue(account.getBalance() == 1000D);
     }
 
     @Test
@@ -113,48 +178,219 @@ class BankAppTest
     @Test
     void As_the_system_I_reject_a_withdrawal_that_would_result_in_a_negative_balance()
     {
-        assertTrue(true);
+        String output =  "How much did you wish to withdraw? (0) for back.\n" +
+                "You can not withdraw an amount greater than your balance.\n" +
+                "How much did you wish to withdraw? (0) for back.\n";
+        String username = "SeikLuceid";
+        String password = "sl-admin";
+
+        Customer c = (Customer)DatabaseConnect.attemptLogin(username, password);
+        Account account = DatabaseConnect.requestAccountByNumber(9, 3);
+
+        assertTrue(account.getBalance() == 1000D);
+        Input.SetScanner(new Scanner("20000\n0"));
+
+        PrintStream previousConsole = System.out;
+        ByteArrayOutputStream newConsole = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(newConsole));
+
+        AccountMenu menu = new AccountMenu(account, c);
+        menu.withdrawFromAccount();
+
+        System.setOut(previousConsole);
+        String console = newConsole.toString();
+        console = console.replaceAll("\\r\\n", "\n");
+        console = console.replaceAll("\\r", "\n");
+
+        assertEquals(output, console);
     }
 
     @Test
     void As_the_system_I_reject_a_deposit_or_withdrawal_of_negative_money()
     {
-        assertTrue(true);
+        String output =  "How much did you wish to withdraw? (0) for back.\n" +
+                "You can not withdraw an amount less than 0.\n" +
+                "How much did you wish to withdraw? (0) for back.\n";
+        String username = "SeikLuceid";
+        String password = "sl-admin";
+
+        Customer c = (Customer)DatabaseConnect.attemptLogin(username, password);
+        Account account = DatabaseConnect.requestAccountByNumber(9, 3);
+
+        assertTrue(account.getBalance() == 1000D);
+        Input.SetScanner(new Scanner("-20000\n0"));
+
+        PrintStream previousConsole = System.out;
+        ByteArrayOutputStream newConsole = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(newConsole));
+
+        AccountMenu menu = new AccountMenu(account, c);
+        menu.withdrawFromAccount();
+
+        System.setOut(previousConsole);
+        String console = newConsole.toString();
+        console = console.replaceAll("\\r\\n", "\n");
+        console = console.replaceAll("\\r", "\n");
+
+        assertEquals(output, console);
     }
 
     @Test
     void As_an_employee_I_can_approve_or_reject_an_account()
     {
-        assertTrue(true);
+        String username = "SeikLuceid";
+        String password = "sl-admin";
+        Customer c = (Customer)DatabaseConnect.attemptLogin(username, password);
+        Account account = DatabaseConnect.createBankAccount(c, 100D);
+
+
+        try{
+            if(!DatabaseConnect.approvePendingAccount(account))
+            {
+                fail();
+                return;
+            }
+            Connection conn = DatabaseConnect.connect();
+            PreparedStatement stmt = conn.prepareStatement("DELETE FROM accounts WHERE customer_id=?");
+            stmt.setInt(1, account.getUser_id());
+            stmt.executeUpdate();
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
     }
 
     @Test
     void As_an_employee_I_can_view_a_customers_bank_accounts()
     {
-        assertTrue(true);
+        ArrayList<Account> accounts = DatabaseConnect.getAccountsByID(3);
+        assertTrue(accounts.size() > 0);
     }
 
     @Test
     void As_a_user_I_can_register_for_a_customer_account()
     {
-        assertTrue(true);
+        String username = "TEST";
+        String password = "EXAMPLE";
+        String firstName = "JUnit";
+        String lastName = "Test Runner";
+        String ssn = "888-88-8888";
+
+        DatabaseConnect.createUser(username, password, firstName, lastName, ssn);
+        boolean success = DatabaseConnect.usernameExists(username) && DatabaseConnect.ssnExists(ssn);
+        assertTrue(success);
+
+
+        if(!success)
+        {
+            fail();
+            return;
+        }
+
+        try{
+            Connection conn = DatabaseConnect.connect();
+            PreparedStatement stmt = conn.prepareStatement("DELETE FROM users WHERE username=?");
+            stmt.setString(1, username);
+            stmt.executeUpdate();
+            stmt = conn.prepareStatement("DELETE FROM customers WHERE ssn=?");
+            stmt.setString(1, ssn);
+            stmt.executeUpdate();
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+        success = DatabaseConnect.usernameExists(username) && DatabaseConnect.ssnExists(ssn);
+        assertFalse(success);
     }
 
     @Test
     void As_a_customer_I_can_post_a_money_transfer_to_another_account()
     {
-        assertTrue(true);
+        Account account = DatabaseConnect.requestAccountByNumber(9, 3);
+
+        int origin = 9;
+        int destination = 4;
+        double amount = 100D;
+
+        assertTrue(DatabaseConnect.initiateTransfer(origin, destination, amount));
+        ArrayList<Transfer> transfers = DatabaseConnect.getPendingTransfersFrom(account);
+
+        Transfer selectedTransfer = null;
+        for(Transfer transfer : transfers)
+        {
+            if(
+                    transfer.getOrigin() == origin &&
+                            transfer.getDestination() == destination &&
+                            transfer.getAmount() == amount
+            )
+            {
+                selectedTransfer = transfer;
+                break;
+            }
+
+        }
+        assertTrue(DatabaseConnect.cancelTransfer(selectedTransfer));
     }
 
     @Test
     void As_a_customer_I_can_accept_a_money_transfer_from_another_account()
     {
-        assertTrue(true);
+        int origin = 9;
+        int destination = 4;
+        double amount = 100D;
+        int customer_id = 3;
+
+        Account account = DatabaseConnect.requestAccountByNumber(origin, customer_id);
+
+        assertTrue(DatabaseConnect.initiateTransfer(origin, destination, amount));
+        ArrayList<Transfer> transfers = DatabaseConnect.getPendingTransfersFrom(account);
+
+        Transfer selectedTransfer = null;
+        for(Transfer transfer : transfers)
+        {
+            if(
+                    transfer.getOrigin() == origin &&
+                    transfer.getDestination() == destination &&
+                    transfer.getAmount() == amount
+            )
+            {
+                selectedTransfer = transfer;
+                break;
+            }
+        }
+        assertTrue(DatabaseConnect.applyTransfer(selectedTransfer));
+
+        int targetDestination = destination;
+        destination = origin;
+        origin = targetDestination;
+
+        account = DatabaseConnect.requestAccountByNumber(origin, customer_id);
+
+        assertTrue(DatabaseConnect.initiateTransfer(origin, destination, amount));
+        transfers = DatabaseConnect.getPendingTransfersFrom(account);
+
+        selectedTransfer = null;
+        for(Transfer transfer : transfers)
+        {
+            if(
+                    transfer.getOrigin() == origin &&
+                            transfer.getDestination() == destination &&
+                            transfer.getAmount() == amount
+            )
+            {
+                selectedTransfer = transfer;
+                break;
+            }
+        }
+
+        assertTrue(DatabaseConnect.applyTransfer(selectedTransfer));
     }
 
     @Test
     void As_an_employee_I_can_view_a_log_of_all_transactions()
     {
-        assertTrue(true);
+        ArrayList<Transaction> transactions = DatabaseConnect.getTransactions();
+        assertTrue(transactions.size() > 0);
     }
 }

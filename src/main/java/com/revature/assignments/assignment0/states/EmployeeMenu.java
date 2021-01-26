@@ -29,8 +29,11 @@ public class EmployeeMenu implements State
         System.out.println("(A)ccounts by Customer ID.");
         System.out.println("(T)ransaction Log.");
         System.out.println("(Q)uit.");
-
-        char selection = Input.getChar();
+        char selection = 'Z';
+        if(pendingAccounts.size() > 0)
+            selection = Input.getValidChar("Selection: ", "Invalid Entry!  Please try again.", 'P', 'A', 'T', 'Q');
+        else
+            selection = Input.getValidChar("Selection: ", "Invalid Entry!  Please try again.", 'A', 'T', 'Q');
 
         switch(selection)
         {
@@ -81,7 +84,7 @@ public class EmployeeMenu implements State
                     System.out.println("(V)iew different customer's accounts.");
                     System.out.println("(B)ack.");
 
-                    selection = Input.getChar();
+                    selection = Input.getValidChar("Selection: ", "Invalid Entry!  Please try again.", 'V', 'B');
                     if(selection == 'B')
                         id = 0;
                 }
@@ -105,7 +108,7 @@ public class EmployeeMenu implements State
             System.out.println("(A)pprove specific account.");
             System.out.println("(R)eject specific account.");
             System.out.println("(B)ack.");
-            selection = Input.getChar();
+            selection = Input.getValidChar("Selection: ", "Invalid Entry!  Please try again.", 'A', 'R', 'B');
             switch(selection)
             {
                 case 'A':
@@ -159,7 +162,7 @@ public class EmployeeMenu implements State
                     System.out.println("(Y)es.");
                     System.out.println("(N)o.");
                     System.out.println("(B)ack.");
-                    selection = Input.getChar();
+                    selection = Input.getValidChar("Selection: ", "Invalid Entry!  Please try again.", 'Y', 'N', 'B');
                     switch(selection) {
                         case 'Y':
                             if(DatabaseConnect.removePendingAccount(account))
@@ -218,7 +221,7 @@ public class EmployeeMenu implements State
                     System.out.println("(Y)es.");
                     System.out.println("(N)o.");
                     System.out.println("(B)ack.");
-                    selection = Input.getChar();
+                    selection = Input.getValidChar("Selection: ", "Invalid Entry!  Please try again.", 'Y', 'N', 'B');
                     switch(selection) {
                         case 'Y':
                             if(DatabaseConnect.approvePendingAccount(account))
@@ -248,7 +251,7 @@ public class EmployeeMenu implements State
             System.out.println(transaction.toString());
     }
 
-    public boolean quitProgram() {
+    public boolean shouldQuitApplication() {
         return shouldQuit;
     }
 }

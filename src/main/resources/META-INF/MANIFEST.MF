@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Main-Class: com.revature.assignments.assignment0.BankApp
+Class-Path: com.revature.assignments.assigment0
+

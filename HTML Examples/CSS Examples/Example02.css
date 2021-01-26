@@ -1,0 +1,37 @@
+/* Element Selector */
+h1 {
+    text-align: center;
+}
+
+/* Id Selector */
+#tableHeader {
+    text-align: center;
+}
+
+/* Class Selector */
+.myTable {
+    border: 1px solid black;
+}
+
+/* Universal Selector */
+* {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 15px;
+}
+
+/* Attribute Selector */
+[id] {
+    background-color: lightyellow;
+}
+
+/* Attribute Selector with Value */
+[type="button"] {
+    padding: 15px;
+    text-align: center;
+    background-color: aqua;
+}
+
+/* Grouping Selector */
+h1, h2 {
+    color: blue;
+}

@@ -3,195 +3,77 @@ package com.revature.assignments.assignment0.states;
 import com.revature.assignments.assignment0.singletons.*;
 import com.revature.assignments.assignment0.dataObjects.User;
 
-import java.util.Locale;
-
 class RegisterMenu implements State
 {
-    private String username;
-    private String password;
-    private String firstName;
-    private String lastName;
-    private String ssn;
-
-    private boolean shouldQuit = false;
-    private boolean exitMenu = false;
-
     public void processInputs()
     {
-        exitMenu = false;
-        getUsername();
-        getPassword();
-        getFirstName();
-        getLastName();
-        getSSN();
-        createCustomerAccount();
+        String username = getUsername();
+        String password = getPassword();
+        String firstName = getName(PROMPT_FIRSTNAME);
+        String lastName = getName(PROMPT_LASTNAME);
+        String ssn = getSSN();
+        createCustomerAccount(username, password, firstName, lastName, ssn);
     }
 
-    private void createCustomerAccount()
+    private String getUsername()
     {
-        if(exitMenu)
+        String userName = Input.getAlphanumericStringInUpperCase(PROMPT_USERNAME, ERROR_USERNAME_INVALID);
+        if(DatabaseConnect.usernameExists(userName))
+        {
+            System.out.println(ERROR_USERNAME_EXISTS);
+            return getUsername();
+        }
+        return userName;
+    }
+
+    private String getPassword()
+    { return Input.getStringOfGreaterThanGivenLength(6, PROMPT_PASSWORD, ERROR_PASSWORD); }
+
+    private String getName(String prompt)
+    { return Input.getStringWithNamingConvention(prompt, ERROR_NAME); }
+
+    private String getSSN() {
+        String ssnString = Input.getSSNAsString(PROMPT_SSN, ERROR_SSN_INVALID);
+        if (DatabaseConnect.ssnExists(ssnString)) {
+            System.out.println(ERROR_SSN_EXISTS);
+            MenuStateMachine.getInstance().setState(new MainMenu());
+            shouldQuit = true;
+        }
+        return ssnString;
+    }
+
+    private void createCustomerAccount(String username, String password, String firstName, String lastName, String ssn)
+    {
+        if(shouldQuit)
             return;
         User user = DatabaseConnect.createUser(username, password, firstName, lastName, ssn);
         if(user == null)
         {
-            System.out.println("Unable to Create User at this time.  Please try again later.");
-            MenuStateMachine.getInstance().setState(new MainMenu());
-            exitMenu = true;
+            System.out.println(ERROR_USER);
+            shouldQuit = true;
         }
         else
         {
-            System.out.println("Account Created!");
+            System.out.println(SUCCESS_USER);
             user.loadMenu();
         }
     }
 
-    private void getUsername()
-    {
-        boolean invalid = true;
-        while (invalid && !exitMenu) {
-            System.out.print("Username: ");
-            username = Input.getString().toUpperCase();
-            if(DatabaseConnect.usernameExists(username))
-            {
-                errorOptions("That username already exists.  Please try again.");
-            }
-            else
-                invalid = false;
-        }
-    }
+    public boolean shouldQuitApplication()
+    { return shouldQuit; }
 
-    private void getPassword() {
-        boolean invalid = true;
-        while(invalid && !exitMenu)
-        {
-            System.out.print("\nPassword: ");
-            password = Input.getString();
-            if (password.length() < 4)
-            {
-                errorOptions("Your password is too short!  Must be 4 or more characters.");
-                invalid = true;
-            }
-            else
-            {
-                invalid = false;
-            }
-        }
-    }
-
-    private void getFirstName()
-    {
-        boolean invalid = true;
-        while(invalid && !exitMenu)
-        {
-            System.out.print("\nFirst Name: ");
-            firstName = Input.getString().toUpperCase();
-            if (firstName.length() < 1)
-            {
-                errorOptions("You must enter a valid name.  Please try again.");
-            }
-            else
-                invalid = false;
-        }
-    }
-
-    private void getLastName()
-    {
-        boolean invalid = true;
-        while(invalid && !exitMenu)
-        {
-            System.out.print("\nLast Name: ");
-            lastName = Input.getString().toUpperCase();
-            if (lastName.length() < 1)
-            {
-                errorOptions("You must enter a valid name.  Please try again.");
-            }
-            else
-                invalid = false;
-        }
-    }
-
-    private void getSSN()
-    {
-        boolean invalid = true;
-        while(invalid && !exitMenu)
-        {
-            System.out.print("\nSSN (###-##-####): ");
-            ssn = Input.getString().toUpperCase();
-            int count = 0;
-            for(int i = 0; i < ssn.length(); i++)
-            {
-                if(ssn.length() != 11)
-                {
-                    errorOptions("Incorrect Format!  ###-##-#### is the correct format. Please try again.");
-                    invalid = true;
-                    break;
-                }
-
-                if(i == 3 || i == 6)
-                {
-                    if(ssn.charAt(i) == '-')
-                        invalid = false;
-                    else
-                    {
-                        errorOptions("Incorrect Format!  ###-##-#### is the correct format. Please try again.");
-                        invalid = true;
-                        break;
-                    }
-                }
-                else if(ssn.charAt(i) < 48 || ssn.charAt(i) > 57)
-                {
-                    errorOptions("Incorrect Format!  ###-##-#### is the correct format. Please try again.");
-                    invalid = true;
-                    break;
-                }
-                else
-                {
-                    invalid = false;
-                }
-            }
-
-            if(DatabaseConnect.ssnExists(ssn))
-            {
-                System.out.println("That SSN already exists as a user.  Please contact customer service.");
-                MenuStateMachine.getInstance().setState(new MainMenu());
-                exitMenu = true;
-            }
-        }
-
-    }
-
-    private void errorOptions(String errorMessage)
-    {
-        boolean invalid = true;
-        while(invalid && !exitMenu)
-        {
-            System.out.println(errorMessage);
-            System.out.println("\nWhat would you like to do?");
-            System.out.println("(T)ry again.");
-            System.out.println("(R)eturn to Main Menu.");
-            System.out.println("(Q)uit the application.");
-            char selection = Input.getString().toUpperCase(Locale.ROOT).charAt(0);
-            switch(selection)
-            {
-                case 'T':
-                    invalid = false;
-                    break;
-                case 'R':
-                    MenuStateMachine.getInstance().setState(new MainMenu());
-                    invalid = false;
-                    exitMenu = true;
-                    break;
-                case 'Q':
-                    shouldQuit = true;
-                    exitMenu = true;
-                    break;
-            }
-        }
-
-
-    }
-
-    public boolean quitProgram() {
-        return shouldQuit;
-    }
+    private boolean shouldQuit = false;
+    private static final String PROMPT_FIRSTNAME = "First Name: ";
+    private static final String PROMPT_LASTNAME = "Last Name: ";
+    private static final String PROMPT_USERNAME = "Username: ";
+    private static final String PROMPT_PASSWORD = "Password: ";
+    private static final String PROMPT_SSN = "SSN: ";
+    private static final String ERROR_USERNAME_INVALID = "Invalid Characters, please use alphanumeric characters only.  Please try again.";
+    private static final String ERROR_USERNAME_EXISTS = "That username already exists.  Please try again.";
+    private static final String ERROR_PASSWORD = "Password must be 6 or more characters.  Please try again.";
+    private static final String ERROR_NAME = "Alphabetic only except ' character.  Please try again.";
+    private static final String ERROR_SSN_INVALID = "Invalid SSN! Please try again.";
+    private static final String ERROR_SSN_EXISTS = "That SSN already exists as a user.  Please contact customer service.";
+    private static final String ERROR_USER = "Unable to Create User at this time.  Please try again later.";
+    private static final String SUCCESS_USER = "Account Created!";
 }

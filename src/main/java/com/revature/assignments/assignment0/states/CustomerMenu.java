@@ -35,7 +35,11 @@ public class CustomerMenu implements State
             System.out.println("(P)ending Transfers Awaiting Approval.");
         System.out.println("(L)ogout.");
 
-        char selection = Input.getChar();
+        char selection = 'Z';
+        if(transfers.size() > 0)
+            selection = Input.getValidChar("Selection: ", "Invalid Entry!  Please try again.", 'C', 'N', 'P', 'L');
+        else
+            selection = Input.getValidChar("Selection: ", "Invalid Entry!  Please try again.", 'C', 'N', 'L');
         switch(selection)
         {
             case 'C':
@@ -55,33 +59,25 @@ public class CustomerMenu implements State
 
     private void displayPendingTransfers()
     {
-        boolean invalid = true;
-        while(invalid)
+        for(Transfer transfer : transfers)
         {
-            for(Transfer transfer : transfers)
-            {
-                System.out.println(transfer.toString());
-            }
-            System.out.println("What would you like to do?");
-            System.out.println("(A)pprove Transfer.");
-            System.out.println("(R)eject Transfer.");
-            System.out.println("(B)ack.");
-            char selection = Input.getChar();
-            invalid = false;
-            switch(selection)
-            {
-                case 'A':
-                    approveTransfer();
-                    break;
-                case 'R':
-                    rejectTransfer();
-                    break;
-                case 'B':
-                    return;
-                default:
-                    invalid = true;
-                    System.out.println("Please try again.");
-            }
+            System.out.println(transfer.toString());
+        }
+        System.out.println("What would you like to do?");
+        System.out.println("(A)pprove Transfer.");
+        System.out.println("(R)eject Transfer.");
+        System.out.println("(B)ack.");
+        char selection = Input.getValidChar("Selection: ", "Invalid Entry!  Please try again.", 'A', 'R', 'B');
+        switch(selection)
+        {
+            case 'A':
+                approveTransfer();
+                break;
+            case 'R':
+                rejectTransfer();
+                break;
+            case 'B':
+                return;
         }
     }
 
@@ -121,7 +117,7 @@ public class CustomerMenu implements State
         System.out.println(selectedTransfer.toString());
         System.out.println("(Y)es.");
         System.out.println("(N)o.");
-        char select = Input.getChar();
+        char select = Input.getValidChar("Selection: ", "Invalid Entry!  Please try again.", 'Y', 'N');
         if(select == 'Y')
         {
             if(DatabaseConnect.applyTransfer(selectedTransfer))
@@ -179,7 +175,7 @@ public class CustomerMenu implements State
         System.out.println(selectedTransfer.toString());
         System.out.println("(Y)es.");
         System.out.println("(N)o.");
-        char select = Input.getChar();
+        char select = Input.getValidChar("Selection: ", "Invalid Entry!  Please try again.", 'Y', 'N');
         if(select == 'Y')
         {
             if(DatabaseConnect.cancelTransfer(selectedTransfer))
@@ -220,21 +216,20 @@ public class CustomerMenu implements State
             System.out.println("(C)onfirm.");
             System.out.println("(B)ack.");
 
-            char selection = Input.getChar();
+            char selection = Input.getValidChar("Selection: ", "Invalid Entry!  Please try again.", 'C', 'B');
             switch(selection)
             {
                 case 'C':
-                    if(DatabaseConnect.createBankAccount(customer, deposit))
+                    Account account = DatabaseConnect.createBankAccount(customer, deposit);
+                    if(account == null)
                         System.out.println("Bank Account Pending.  Awaiting employee review.");
                     else
+                        customer.addAccount(account.getUser_id());
                         System.out.println("Account Creation Failed, please try again later.");
                     invalid = false;
                     break;
                 case'B':
                     invalid = false;
-                    break;
-                default:
-                    System.out.println("Invalid Entry.  Please try again.\n");
                     break;
             }
         }
@@ -276,36 +271,28 @@ public class CustomerMenu implements State
 
     private void errorOptions(String errorMessage)
     {
-        boolean invalid = true;
-        while (invalid) {
-            System.out.println(errorMessage);
-            System.out.println("What would you like to do?");
-            System.out.println("(T)ry again.");
-            System.out.println("(R)eturn to Main Menu.");
-            System.out.println("(Q)uit the application.");
+        System.out.println(errorMessage);
+        System.out.println("What would you like to do?");
+        System.out.println("(T)ry again.");
+        System.out.println("(R)eturn to Main Menu.");
+        System.out.println("(Q)uit the application.");
 
-            char selection = Input.getChar();
-            System.out.println(selection);
+        char selection = Input.getValidChar("Selection: ", "Invalid Entry!  Please try again.", 'T', 'R', 'Q');
+        System.out.println(selection);
 
-            invalid = false;
-            switch (selection) {
-                case 'T':
-                    break;
-                case 'R':
-                    MenuStateMachine.getInstance().setState(new MainMenu());
-                    break;
-                case 'Q':
-                    shouldQuit = true;
-                    break;
-                default:
-                    System.out.println("Invalid Entry, please try again.");
-                    invalid = true;
-                    break;
-            }
+        switch (selection) {
+            case 'T':
+                break;
+            case 'R':
+                MenuStateMachine.getInstance().setState(new MainMenu());
+                break;
+            case 'Q':
+                shouldQuit = true;
+                break;
         }
     }
 
-    public boolean quitProgram() {
+    public boolean shouldQuitApplication() {
         return shouldQuit;
     }
 }

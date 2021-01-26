@@ -1,0 +1,10 @@
+
+table { border: 1px solid black; }
+
+th { background-color: grey; border: 1px solid black; }
+
+td { background-color: lightgray; border: 1px dashed black; }
+
+/*This will be ignored due to internal styling.*/
+
+p { background-color: #ff0000 }

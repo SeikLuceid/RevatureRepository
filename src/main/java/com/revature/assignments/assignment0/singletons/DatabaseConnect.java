@@ -110,7 +110,7 @@ public class DatabaseConnect
 
         try {
             verifyConnection();
-            CallableStatement call = conn.prepareCall("{? = call username_exists(?)}");
+            CallableStatement call = conn.prepareCall("{? = call public.username_exists(?)}");
             call.registerOutParameter(1, Types.BOOLEAN);
             call.setString(2, username);
             call.execute();
@@ -118,8 +118,7 @@ public class DatabaseConnect
             if (!exists) {
                 System.out.println("\nUsername not found.\n");
                 call.close();
-                throw new SQLException("TESTING LOGGING");
-                //return newUser;
+                return newUser;
             }
 
             call = conn.prepareCall("{? = call check_password(?, ?)}");
@@ -307,18 +306,27 @@ public class DatabaseConnect
         }
     }
 
-    public static boolean createBankAccount(Customer customer, double deposit) {
+    public static Account createBankAccount(Customer customer, double deposit) {
+        Account account = null;
         try {
             verifyConnection();
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO pending_accounts (balance, customer_id) VALUES (?, ?)");
             stmt.setDouble(1, deposit);
             stmt.setInt(2, customer.getId());
             stmt.executeUpdate();
-            return true;
+
+            stmt = conn.prepareStatement("SELECT * FROM pending_accounts WHERE customer_id = ? AND balance = ?");
+            stmt.setInt(1, customer.getId());
+            stmt.setDouble(2, deposit);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next())
+            {
+                account = new Account(rs.getInt(1), rs.getDouble(2), rs.getInt(3));
+            }
         } catch (SQLException e) {
            logger.error("SQL", e);
-            return false;
         }
+        return account;
     }
 
     public static boolean applyTransfer(Transfer selectedTransfer) {

@@ -2,6 +2,8 @@ package com.revature.assignments.assignment0.states;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
+import java.io.IOException;
+
 public class MenuStateMachine
 {
     private static MenuStateMachine instance = new MenuStateMachine();
@@ -14,12 +16,17 @@ public class MenuStateMachine
 
     public boolean quitProgram()
     {
-        return currentState.quitProgram();
+        return currentState.shouldQuitApplication();
     }
 
     public void processInputs()
     {
         System.out.println();
+        try{
+            Runtime.getRuntime().exec("cls");
+        } catch (IOException e) { }
+        System.out.flush();
+
         currentState.processInputs();
     }
 

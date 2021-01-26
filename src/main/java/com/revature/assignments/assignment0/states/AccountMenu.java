@@ -27,7 +27,7 @@ public class AccountMenu implements State
     {
         System.out.println("Transfers: " + transfers.size());
         displayOptions();
-        char selection = Input.getChar();
+        char selection = Input.getValidChar("Selection: ", "Invalid Entry!  Please try again.", 'D', 'W', 'T', 'P', 'B');
         switch(selection)
         {
             case'D':
@@ -46,9 +46,6 @@ public class AccountMenu implements State
             case 'B':
                 MenuStateMachine.getInstance().setState(new CustomerMenu(customer));
                 return;
-            default:
-                System.out.println("Invalid Entry!  Please try again.");
-                break;
         }
     }
 
@@ -64,7 +61,7 @@ public class AccountMenu implements State
             System.out.println("What would you like to do?");
             System.out.println("(C)ancel Transfer.");
             System.out.println("(B)ack.");
-            char selection = Input.getChar();
+            char selection = Input.getValidChar("Selection: ", "Invalid Entry!  Please try again.", 'C', 'B');
             switch(selection)
             {
                 case 'C':
@@ -116,7 +113,7 @@ public class AccountMenu implements State
         System.out.println(selectedTransfer.toString());
         System.out.println("(Y)es.");
         System.out.println("(N)o.");
-        char select = Input.getChar();
+        char select = Input.getValidChar("Selection: ", "Invalid Entry!  Please try again.", 'Y', 'N');
         if(select == 'Y')
         {
             if(DatabaseConnect.cancelTransfer(selectedTransfer))
@@ -169,7 +166,7 @@ public class AccountMenu implements State
             System.out.println(formatter.format(amount) + " - Is this amount correct?");
             System.out.println("(Y)es");
             System.out.println("(N)o");
-            char selection = Input.getChar();
+            char selection = Input.getValidChar("Selection: ", "Invalid Entry!  Please try again.", 'Y', 'N');
             if(selection == 'Y')
             {
                 if (!adjustBalanceOfAccount(account.getBalance() + amount, "Deposit Successful."))
@@ -183,7 +180,7 @@ public class AccountMenu implements State
         }
     }
 
-    private void withdrawFromAccount()
+    public void withdrawFromAccount()
     {
         boolean invalid = true;
         while(invalid)
@@ -211,17 +208,12 @@ public class AccountMenu implements State
             System.out.println(formatter.format(amount) + " - Is this amount correct?");
             System.out.println("(Y)es");
             System.out.println("(N)o");
-            char selection = Input.getChar();
+            char selection = Input.getValidChar("Selection: ", "Invalid Entry!  Please try again.", 'Y', 'N');
             if(selection == 'Y')
             {
                 if (!adjustBalanceOfAccount(account.getBalance() - amount, "Withdrawal Successful."))
                     System.out.println("Withdrawal Failed.  Please try again later.");
                 break;
-
-            }
-            else
-            {
-                System.out.println("Please try again.");
             }
         }
     }
@@ -267,7 +259,7 @@ public class AccountMenu implements State
             System.out.println(formatter.format(amount) + " - Is this amount correct?");
             System.out.println("(Y)es");
             System.out.println("(N)o");
-            char selection = Input.getChar();
+            char selection = Input.getValidChar("Selection: ", "Invalid Entry!  Please try again.", 'Y', 'N');
             if(selection == 'Y')
             {
                 if(DatabaseConnect.initiateTransfer(account.getAccountNumber(), destination, amount))
@@ -279,24 +271,21 @@ public class AccountMenu implements State
                     System.out.println("Transfer Failed - Please try again later.");
                 break;
             }
-            else
-                System.out.println("Please try again.");
         }
     }
 
-    private void errorOptions(String errorMessage) {
-        boolean invalid = true;
-        while (invalid) {
+    private void errorOptions(String errorMessage)
+    {
             System.out.println(errorMessage);
             System.out.println("\nWhat would you like to do?");
             System.out.println("(T)ry again.");
             System.out.println("(R)eturn to Main Menu.");
             System.out.println("(Q)uit the application.");
 
-            char selection = Input.getChar();
+            char selection = Input.getValidChar("Selection: ", "Invalid Entry!  Please try again.", 'T', 'R', 'Q');
 
-            invalid = true;
-            switch (selection) {
+            switch (selection)
+            {
                 case 'T':
                     break;
                 case 'R':
@@ -305,15 +294,10 @@ public class AccountMenu implements State
                 case 'Q':
                     shouldQuit = true;
                     break;
-                default:
-                    System.out.println("Invalid Entry, please try again.");
-                    invalid = false;
-                    break;
             }
-        }
     }
 
-    public boolean quitProgram() {
+    public boolean shouldQuitApplication() {
         return shouldQuit;
     }
 }
