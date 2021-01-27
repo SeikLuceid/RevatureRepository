@@ -1,6 +1,6 @@
 package com.revature.day10;
 
-import com.revature.assignments.assignment0.singletons.DatabaseConnect;
+import com.revature.assignments.project0.singletons.DatabaseConnect;
 
 import java.sql.*;
 
