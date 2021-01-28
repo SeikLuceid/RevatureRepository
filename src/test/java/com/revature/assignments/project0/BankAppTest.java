@@ -208,8 +208,9 @@ class BankAppTest
     void As_the_system_I_reject_a_withdrawal_that_would_result_in_a_negative_balance()
     {
         String output =  "How much did you wish to withdraw? (0) for back.\n" +
-                "You can not withdraw an amount greater than your balance.\n" +
-                "How much did you wish to withdraw? (0) for back.\n";
+                "Amount: You can not withdraw an amount greater than your balance.\n" +
+                "How much did you wish to withdraw? (0) for back.\n" +
+                "Amount: ";
         String username = "SEIKLUCEID";
         String password = "sl-admin";
 
@@ -239,8 +240,9 @@ class BankAppTest
     void As_the_system_I_reject_a_deposit_or_withdrawal_of_negative_money()
     {
         String output =  "How much did you wish to withdraw? (0) for back.\n" +
-                "You can not withdraw an amount less than 0.\n" +
-                "How much did you wish to withdraw? (0) for back.\n";
+                "Amount: You can not withdraw an amount less than 0.\n" +
+                "How much did you wish to withdraw? (0) for back.\n" +
+                "Amount: ";
         String username = "SEIKLUCEID";
         String password = "sl-admin";
 
