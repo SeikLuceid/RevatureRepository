@@ -6,7 +6,7 @@ public class Account implements Comparable<Account>
 {
     private int accountNumber = -1;
     private double balance;
-    private int userId;
+    private final int userId;
 
     public Account(int accountNumber, double balance, int userId)
     {

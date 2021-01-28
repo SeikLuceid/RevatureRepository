@@ -5,8 +5,8 @@ import com.revature.assignments.project0.states.MenuStateMachine;
 
 public class Employee implements User {
 
-    private int emp_id;
-    private String emp_name;
+    private final int emp_id;
+    private final String emp_name;
 
     public Employee(int id, String name)
     {

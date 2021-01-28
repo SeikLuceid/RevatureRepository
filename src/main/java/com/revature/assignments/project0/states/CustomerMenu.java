@@ -10,11 +10,11 @@ import java.util.ArrayList;
 
 public class CustomerMenu implements State
 {
-    private boolean shouldQuit = false;
+    private final boolean shouldQuit = false;
     private final Customer customer;
     private final NumberFormat formatter = NumberFormat.getCurrencyInstance();
-    private ArrayList<Transfer> transfers;
-    private boolean hasAccount;
+    private final ArrayList<Transfer> transfers;
+    private final boolean hasAccount;
     private boolean hasPendingTransfers;
 
 
@@ -121,8 +121,7 @@ public class CustomerMenu implements State
             while(selectedTransfer == null)
             {
                 System.out.println("Which transfer would you like to approve? (0) to go back.");
-                System.out.print("Transfer ID: ");
-                int selection = Input.getInt();
+                int selection = Input.getInt("Transfer ID: ");
                 if(selection == 0)
                     return;
                 for (Transfer transfer : transfers) {
@@ -182,8 +181,7 @@ public class CustomerMenu implements State
             while(selectedTransfer == null)
             {
                 System.out.println("Which transfer would you like to cancel? (0) to go back.");
-                System.out.print("Transfer ID: ");
-                int selection = Input.getInt();
+                int selection = Input.getInt("Transfer ID: ");
                 if(selection == 0)
                     return;
                 for (Transfer transfer : transfers) {
@@ -237,7 +235,7 @@ public class CustomerMenu implements State
         while(invalid) {
             System.out.println("An initial deposit of at least " + formatter.format(100) + " is required.");
             System.out.print("Initial Deposit: ");
-            double deposit = Input.getDouble();
+            double deposit = Input.getDouble("Amount: ");
             if(deposit < 0)
             {
                 System.out.println("Unable to deposit less than " + formatter.format(0) + ". Please try again.");
@@ -285,7 +283,7 @@ public class CustomerMenu implements State
             for(Account account : customer.getAccounts())
                 System.out.println(account.toString());
             System.out.println("\nPlease choose an account number. (0) to go back.");
-            int selection = Input.getInt();
+            int selection = Input.getInt("Account Number: ");
             if(selection == 0)
                 return;
             for(Account account : customer.getAccounts())

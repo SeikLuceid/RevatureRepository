@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="d72ca647-4750-4932-ad12-d2603ede0f30" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_logging_log4j_log4j_api_2_14_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_logging_log4j_log4j_core_2_14_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apiguardian_apiguardian_api_1_1_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_checkerframework_checker_qual_3_5_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_api_5_5_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_engine_5_5_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_5_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_5_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_opentest4j_opentest4j_1_2_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_postgresql_postgresql_42_2_18.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/HTML Examples/CSS Examples/JSExample.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/HTML Examples/ECMA Examples/ECMAExample01.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/HTML Examples/ECMA Examples/ECMAExample02.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/HTML Examples/ECMA Examples/ECMAExample03.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/HTML Examples/ECMA Examples/ECMAExample04.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/HTML Examples/Javascript Examples/JSExample.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/HTML Examples/Javascript Examples/JSExample.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/HTML Examples/Javascript Examples/JSExample02.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/HTML Examples/Javascript Examples/JSExample03.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/RevatureProjects.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/project0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/d374f769-e641-4f0b-94be-7e5ad9a944ee.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/d374f769-e641-4f0b-94be-7e5ad9a944ee/storage_v2/_src_/database/bankapp.Zfro6w.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/d374f769-e641-4f0b-94be-7e5ad9a944ee/storage_v2/_src_/database/bankapp.Zfro6w/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/d374f769-e641-4f0b-94be-7e5ad9a944ee/storage_v2/_src_/database/bankapp.Zfro6w/schema/pg_catalog.0S1ZNQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/d374f769-e641-4f0b-94be-7e5ad9a944ee/storage_v2/_src_/database/bankapp.Zfro6w/schema/public.abK9xQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/d374f769-e641-4f0b-94be-7e5ad9a944ee/storage_v2/_src_/database/bankapp.Zfro6w/schema/public.abK9xQ.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/d374f769-e641-4f0b-94be-7e5ad9a944ee/storage_v2/_src_/database/bankapp.Zfro6w/schema/test.kkQ2AA.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/d374f769-e641-4f0b-94be-7e5ad9a944ee/storage_v2/_src_/database/bankapp.Zfro6w/schema/test.kkQ2AA.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExplorationStudies.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ExplorationStudies.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/HTML Examples/Presentation-Notes.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/HTML Examples/Presentation-Notes.md.url" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/revature/assignments/project0/dataObjects/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/revature/assignments/project0/dataObjects/Account.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/revature/assignments/project0/dataObjects/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/revature/assignments/project0/dataObjects/Employee.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/revature/assignments/project0/singletons/Input.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/revature/assignments/project0/singletons/Input.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/revature/assignments/project0/states/AccountMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/revature/assignments/project0/states/AccountMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/revature/assignments/project0/states/CustomerMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/revature/assignments/project0/states/CustomerMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/revature/assignments/project0/states/EmployeeMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/revature/assignments/project0/states/EmployeeMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/revature/assignments/project0/states/LoginMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/revature/assignments/project0/states/LoginMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/revature/assignments/project0/states/MainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/revature/assignments/project0/states/MainMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/revature/assignments/project0/states/MenuStateMachine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/revature/assignments/project0/states/MenuStateMachine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/revature/assignments/project0/BankAppTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/revature/assignments/project0/BankAppTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ExplorationStudies-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/ExplorationStudies-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/revature/assignments/project0/dataObjects/Account.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/revature/assignments/project0/dataObjects/Account.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/revature/assignments/project0/dataObjects/Employee.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/revature/assignments/project0/dataObjects/Employee.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/revature/assignments/project0/singletons/Input.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/revature/assignments/project0/singletons/Input.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/revature/assignments/project0/states/AccountMenu.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/revature/assignments/project0/states/AccountMenu.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/revature/assignments/project0/states/CustomerMenu.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/revature/assignments/project0/states/CustomerMenu.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/revature/assignments/project0/states/EmployeeMenu.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/revature/assignments/project0/states/EmployeeMenu.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/revature/assignments/project0/states/LoginMenu.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/revature/assignments/project0/states/LoginMenu.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/revature/assignments/project0/states/MainMenu.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/revature/assignments/project0/states/MainMenu.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/revature/assignments/project0/states/MenuStateMachine.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/revature/assignments/project0/states/MenuStateMachine.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="ProjectId" id="1ngSGnebVOiCSJ76sJz9bimLN0O" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+  </component>
+  <component name="RunManager" selected="Application.BankApp">
+    <configuration name="BankApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.revature.assignments.project0.BankApp" />
+      <module name="ExplorationStudies" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.revature.assignments.project0.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="BankAppTest.Data_is_stored_in_a_database" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ExplorationStudies" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.revature.assignments.project0.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.revature.assignments.project0" />
+      <option name="MAIN_CLASS_NAME" value="com.revature.assignments.project0.BankAppTest" />
+      <option name="METHOD_NAME" value="Data_is_stored_in_a_database" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.BankApp" />
+      <item itemvalue="JUnit.BankAppTest.Data_is_stored_in_a_database" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.BankApp" />
+        <item itemvalue="JUnit.BankAppTest.Data_is_stored_in_a_database" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d72ca647-4750-4932-ad12-d2603ede0f30" name="Default Changelist" comment="" />
+      <created>1611810153981</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1611810153981</updated>
+      <workItem from="1611810156176" duration="8625000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+</project>

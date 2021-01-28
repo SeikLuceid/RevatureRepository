@@ -86,8 +86,7 @@ public class AccountMenu implements State
         if(transfers.size() > 1) {
             while (selectedTransfer == null) {
                 System.out.println("Which transfer would you like to cancel? (0) to go back.");
-                System.out.print("Transfer ID: ");
-                int selection = Input.getInt();
+                int selection = Input.getInt("Transfer ID: ");
                 if (selection == 0)
                     return;
                 for (Transfer transfer : transfers) {
@@ -111,10 +110,8 @@ public class AccountMenu implements State
 
         System.out.println("Are you sure you wish to cancel the following transfers?");
         System.out.println(selectedTransfer.toString());
-        System.out.println("(Y)es.");
-        System.out.println("(N)o.");
-        char select = Input.getValidChar("Selection: ", "Invalid Entry!  Please try again.", 'Y', 'N');
-        if(select == 'Y')
+        char selection = Input.DisplayMultipleChoice("Yes.", "No.");
+        if(selection == 'Y')
         {
             if(DatabaseConnect.cancelTransfer(selectedTransfer))
             {
@@ -131,26 +128,13 @@ public class AccountMenu implements State
             reviewTransfers();
     }
 
-    private void displayOptions()
-    {
-        System.out.println(account.toString());
-        System.out.println("Please Enter One of the Following Options:");
-        System.out.println("(D)eposit");
-        System.out.println("(W)ithdrawal.");
-        System.out.println("(T)ransfer");
-        if(transfers.size() > 0)
-            System.out.println("(P)ending Transfers.");
-        System.out.println("(B)ack.");
-        char selection = Input.DisplayMultipleChoice("Deposit", "Withdrawal", "Transfer", "Back");
-    }
-
     private void depositIntoAccount()
     {
         boolean invalid = true;
         while(invalid)
         {
             System.out.println("How much did you wish to deposit? (0) for back.");
-            double amount = Input.getDouble();
+            double amount = Input.getDouble("Amount: ");
             if(amount == 0)
             {
                 break;
@@ -170,9 +154,7 @@ public class AccountMenu implements State
             amount = bd.doubleValue();
 
             System.out.println(formatter.format(amount) + " - Is this amount correct?");
-            System.out.println("(Y)es");
-            System.out.println("(N)o");
-            char selection = Input.getValidChar("Selection: ", "Invalid Entry!  Please try again.", 'Y', 'N');
+            char selection = Input.DisplayMultipleChoice("Yes.", "No.");
             if(selection == 'Y')
             {
                 if (!adjustBalanceOfAccount(account.getBalance() + amount, "Deposit Successful."))
@@ -192,7 +174,7 @@ public class AccountMenu implements State
         while(invalid)
         {
             System.out.println("How much did you wish to withdraw? (0) for back.");
-            double amount = Input.getDouble();
+            double amount = Input.getDouble("Amount: ");
             if(amount == 0)
             {
                 break;
@@ -217,9 +199,7 @@ public class AccountMenu implements State
                 continue;
             }
             System.out.println(formatter.format(amount) + " - Is this amount correct?");
-            System.out.println("(Y)es");
-            System.out.println("(N)o");
-            char selection = Input.getValidChar("Selection: ", "Invalid Entry!  Please try again.", 'Y', 'N');
+            char selection = Input.DisplayMultipleChoice("Yes.", "No.");
             if(selection == 'Y')
             {
                 if (!adjustBalanceOfAccount(account.getBalance() - amount, "Withdrawal Successful."))
@@ -246,7 +226,7 @@ public class AccountMenu implements State
         while(invalid)
         {
             System.out.println("What is the destination account number? (0) for back.");
-            int destination = Input.getInt();
+            int destination = Input.getInt("Destination Account Number: ");
 
             if(destination == 0)
                 return;
@@ -266,15 +246,15 @@ public class AccountMenu implements State
             System.out.println();
 
             System.out.println("How much did you want to transfer? (0) for back.");
-            double amount = Input.getDouble();
-            if(amount == 0)
-            {
-                break;
-            }
+            double amount = Input.getDouble("Amount: ");
             if(amount < 0)
             {
                 System.out.println("You can not deposit an amount less than 0.");
                 continue;
+            }
+            if(amount <= 0.01)
+            {
+                break;
             }
             if(amount > 99999999999.9999)
             {
@@ -294,9 +274,7 @@ public class AccountMenu implements State
             System.out.println();
 
             System.out.println(formatter.format(amount) + " - Is this amount correct?");
-            System.out.println("[Y]es");
-            System.out.println("[N]o");
-            char selection = Input.getValidChar("Selection: ", "Invalid Entry!  Please try again.", 'Y', 'N');
+            char selection = Input.DisplayMultipleChoice("Yes.", "No.");
             if(selection == 'Y')
             {
                 if(DatabaseConnect.initiateTransfer(account.getAccountNumber(), destination, amount))
@@ -309,29 +287,6 @@ public class AccountMenu implements State
                 break;
             }
         }
-    }
-
-    private void errorOptions(String errorMessage)
-    {
-            System.out.println(errorMessage);
-            System.out.println("\nWhat would you like to do?");
-            System.out.println("(T)ry again.");
-            System.out.println("(R)eturn to Main Menu.");
-            System.out.println("(Q)uit the application.");
-
-            char selection = Input.getValidChar("Selection: ", "Invalid Entry!  Please try again.", 'T', 'R', 'Q');
-
-            switch (selection)
-            {
-                case 'T':
-                    break;
-                case 'R':
-                    MenuStateMachine.getInstance().setState(new MainMenu());
-                    break;
-                case 'Q':
-                    shouldQuit = true;
-                    break;
-            }
     }
 
     public boolean shouldQuitApplication() {

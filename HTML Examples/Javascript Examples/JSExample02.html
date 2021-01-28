@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>JavaScript Demo</title>
+    <script>
+        function stopWatch() {
+            var startTime = Date.now();
+            function getDelay() {
+                var elapsedTime = Date.now() - startTime;
+                alert("Time Elapsed to Execute the Loop : "+elapsedTime);
+            }
+            return getDelay;
+        }
+    </script>
+</head>
+<body>
+<h1> Closure Demo</h1>
+<script>
+    var timer = stopWatch();
+    // do something that takes some time
+    for (var i = 0; i < 1000000; i++) {
+        var foo = Math.random() * 10000;
+    }
+    // invoke the returned function
+    timer();
+</script>
+</body>
+</html>

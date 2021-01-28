@@ -36,7 +36,7 @@ class BankAppTest
     {
         try{
             Connection conn = DatabaseConnect.connect();
-            assert(conn.isValid(1));
+            assertTrue(conn.isValid(1));
             DatabaseMetaData metaData = conn.getMetaData();
             ResultSet rs = metaData.getTables(null, "test", "accounts", null);
             assertTrue(rs.first());

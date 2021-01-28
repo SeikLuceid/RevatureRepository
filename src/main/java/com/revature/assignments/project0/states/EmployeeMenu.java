@@ -10,9 +10,9 @@ import java.util.ArrayList;
 
 public class EmployeeMenu implements State
 {
-    private boolean shouldQuit = false;
+    private final boolean shouldQuit = false;
     private final Employee employee;
-    private ArrayList<Account> pendingAccounts;
+    private final ArrayList<Account> pendingAccounts;
 
     public EmployeeMenu(Employee employee)
     {
@@ -24,16 +24,11 @@ public class EmployeeMenu implements State
     public void processInputs()
     {
         System.out.println("What would you like to view?");
-        if(pendingAccounts.size() > 0)
-            System.out.println("(P)ending Bank Accounts.");
-        System.out.println("(A)ccounts by Customer ID.");
-        System.out.println("(T)ransaction Log.");
-        System.out.println("(L)ogout.");
         char selection = 'Z';
         if(pendingAccounts.size() > 0)
-            selection = Input.getValidChar("Selection: ", "Invalid Entry!  Please try again.", 'P', 'A', 'T', 'L');
+            selection = Input.DisplayMultipleChoice("Pending Bank Accounts.", "Accounts by Customer ID.", "Transaction Log.", "Logout");
         else
-            selection = Input.getValidChar("Selection: ", "Invalid Entry!  Please try again.", 'A', 'T', 'L');
+            selection = Input.DisplayMultipleChoice("Accounts by Customer ID.", "Transaction Log.", "Logout");
 
         switch(selection)
         {
@@ -58,8 +53,7 @@ public class EmployeeMenu implements State
         while(id != 0)
         {
             System.out.println("Please enter the ID of the customer. (0) for back.");
-            System.out.print("Customer ID: ");
-            id = Input.getInt();
+            id = Input.getInt("Customer ID: ");
             System.out.println(id);
             if(id < 0)
             {
@@ -80,11 +74,7 @@ public class EmployeeMenu implements State
                 char selection = 'Z';
                 while(selection != 'B' && selection != 'V')
                 {
-                    System.out.println("What would you like to do?");
-                    System.out.println("(V)iew different customer's accounts.");
-                    System.out.println("(B)ack.");
-
-                    selection = Input.getValidChar("Selection: ", "Invalid Entry!  Please try again.", 'V', 'B');
+                    selection = Input.DisplayMultipleChoice("View different customer's accounts.", "Back");
                     if(selection == 'B')
                         id = 0;
                 }
@@ -105,10 +95,7 @@ public class EmployeeMenu implements State
             }
 
             System.out.println("What would you like to do?");
-            System.out.println("(A)pprove specific account.");
-            System.out.println("(R)eject specific account.");
-            System.out.println("(B)ack.");
-            selection = Input.getValidChar("Selection: ", "Invalid Entry!  Please try again.", 'A', 'R', 'B');
+            selection = Input.DisplayMultipleChoice("Approve specific account.", "Reject specific account.", "Back.");
             switch(selection)
             {
                 case 'A':
@@ -133,8 +120,7 @@ public class EmployeeMenu implements State
             for(Account account : pendingAccounts)
                 System.out.println(account.toString());
             System.out.println("What account would you like to reject? (0) for back.");
-            System.out.print("Account Number: ");
-            id = Input.getInt();
+            id = Input.getInt("Account Number: ");
             if(id == 0)
                 continue;
             else if(id < 0)
@@ -159,10 +145,7 @@ public class EmployeeMenu implements State
                 {
                     System.out.println(account.toString());
                     System.out.println("Reject this account?");
-                    System.out.println("(Y)es.");
-                    System.out.println("(N)o.");
-                    System.out.println("(B)ack.");
-                    selection = Input.getValidChar("Selection: ", "Invalid Entry!  Please try again.", 'Y', 'N', 'B');
+                    selection = Input.DisplayMultipleChoice("Yes.", "No.", "Back.");
                     switch(selection) {
                         case 'Y':
                             if(DatabaseConnect.removePendingAccount(account))
@@ -192,8 +175,7 @@ public class EmployeeMenu implements State
             for(Account account : pendingAccounts)
                 System.out.println(account.toString());
             System.out.println("What account would you like to approve? (0) for back.");
-            System.out.print("Account Number: ");
-            id = Input.getInt();
+            id = Input.getInt("Account Number: ");
             if(id == 0)
                 continue;
             else if(id < 0)
@@ -219,10 +201,7 @@ public class EmployeeMenu implements State
                 {
                     System.out.println(account.toString());
                     System.out.println("Approve this account?");
-                    System.out.println("(Y)es.");
-                    System.out.println("(N)o.");
-                    System.out.println("(B)ack.");
-                    selection = Input.getValidChar("Selection: ", "Invalid Entry!  Please try again.", 'Y', 'N', 'B');
+                    selection = Input.DisplayMultipleChoice("Yes.", "No.", "Back.");
                     switch(selection) {
                         case 'Y':
                             if(DatabaseConnect.approvePendingAccount(account))

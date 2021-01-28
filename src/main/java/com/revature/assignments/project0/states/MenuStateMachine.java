@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public class MenuStateMachine
 {
-    private static MenuStateMachine instance = new MenuStateMachine();
+    private static final MenuStateMachine instance = new MenuStateMachine();
     private static State currentState = new MainMenu();
     static final Logger logger = LogManager.getLogger(MenuStateMachine.class.getName());
 

@@ -34,9 +34,10 @@ class LoginMenu implements State
     public boolean shouldQuitApplication()
     { return shouldQuit; }
 
-    private boolean shouldQuit = false;
+    private final boolean shouldQuit = false;
 
-    private static final int PASSWORD_MIN_LENGTH = 6;;
+    private static final int PASSWORD_MIN_LENGTH = 6;
+
     private static final String PROMPT_PASSWORD = "Password: ";
     private static final String PROMPT_USERNAME = "Username: ";
     private static final String ERROR_USERNAME = "Invalid Username.";

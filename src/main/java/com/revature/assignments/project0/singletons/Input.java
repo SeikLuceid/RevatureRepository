@@ -15,8 +15,10 @@ public class Input {
         scanner = newScanner;
     }
 
-    private static String getScannerInput() { return scanner.nextLine(); }
-
+    private static String getScannerInput()
+    {
+        return scanner.nextLine();
+    }
 
     private static final char LEFT = '(';
     private static final char RIGHT = ')';
@@ -141,8 +143,9 @@ public class Input {
         return getStringWithNamingConvention(prompt, error);
     }
 
-    public static int getInt()
+    public static int getInt(String prompt)
     {
+        System.out.print(prompt);
         String input = getScannerInput();
         if(input.length() > 0)
         {
@@ -151,16 +154,17 @@ public class Input {
             }
             catch(NumberFormatException e)
             {
-                System.out.println("Invalid Entry.  Please try again.");
-                return getInt();
+                System.out.println(ERROR);
+                return getInt(prompt);
             }
         }
         else
-            return getInt();
+            return getInt(prompt);
     }
 
-    public static double getDouble()
+    public static double getDouble(String prompt)
     {
+        System.out.print(prompt);
         String input = getScannerInput();
         if(input.length() > 0)
         {
@@ -169,12 +173,12 @@ public class Input {
             }
             catch(NumberFormatException e)
             {
-                System.out.println("Invalid Entry.  Please try again.");
-                return getDouble();
+                System.out.println(ERROR);
+                return getDouble(prompt);
             }
         }
         else
-            return getDouble();
+            return getDouble(prompt);
     }
 
     public static String getSSNAsString(String prompt, String error)

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>JavaScript Demo</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.20/lodash.min.js"></script>
+    <script>
+        function log(date, importance, message) {
+            //alert('[${date.getHours()}:${date.getMinutes()}] [${importance}] ${message}');
+            alert(date.getHours() + '  ' + importance + '  ' + message);
+        }
+    </script>
+</head>
+<body>
+<h1> Curry Demo</h1>
+<script>
+
+    //"use strict"
+    x = 400;
+    alert(x + " uncomment use strict to cause error.");
+
+    log = _.curry(log);
+    log(new Date(), "DEBUG", "some debug");
+    log(new Date())("DEBUG")("some debug");
+    // logNow will be the partial of log with fixed first argument
+    let logNow = log(new Date());
+    logNow("INFO", "message");
+    let debugNow = logNow("DEBUG1");
+    debugNow("some");
+
+
+</script>
+</body>
+</html>

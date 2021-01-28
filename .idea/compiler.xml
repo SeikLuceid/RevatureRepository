@@ -9,5 +9,8 @@
         <module name="ExplorationStudies" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="ExplorationStudies" target="8" />
+    </bytecodeTargetLevel>
   </component>
 </project>
